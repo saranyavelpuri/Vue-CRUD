@@ -5,13 +5,14 @@
 <kendo-datasource :data="employees" ref="local" :schema-model-fields="schemaFields">
 </kendo-datasource>
 
-<kendo-grid :id="'form'" :data-source-ref="'local'" :sortable="true" :filterable="true" :editable="'inline'">
+<kendo-grid :id="'form'" :data-source-ref="'local'" :sortable="true" :filterable="true" :editable="'inline'" v-on:databound="onDataBound">
+>
 
   <kendo-grid-column field="name" title="Employee"></kendo-grid-column>
     <kendo-grid-column field="sales" title="Sales" type="number" :format="'{0:c}'"></kendo-grid-column>
   <kendo-grid-column field="birthdate" title="Birthdate"  type="date" :format="'{0:MM-dd-yyyy}'"></kendo-grid-column>
   <kendo-grid-column field="country" title="Country"></kendo-grid-column>
- <kendo-grid-column  :id="'fde'" :command="[{name: 'edit', click: editFnc}, {name: 'destroy', click: deleteFnc}]" title="&nbsp;" width="250px"></kendo-grid-column>
+ <kendo-grid-column  :id="'fde'" :command="[{name: 'edit', click: editFnc}, {name: 'cancel', click: deleteFnc}]" title="&nbsp;" width="250px"></kendo-grid-column>
 </kendo-grid>
 
 
@@ -54,6 +55,9 @@ export default {
              deleteFnc: function()
 {
 
+},
+onDataBound: function(ev){
+var c=ev.sender.dataSource.transport.data;
 }
 
 
